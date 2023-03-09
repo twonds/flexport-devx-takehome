@@ -6,6 +6,20 @@ playing "Rock, Paper, Scissors" with a computer.
 
 ## Running service
 
+### Create virtualenv (optional)
+
+```bash
+python -m venv venv
+```
+
+### Install dependencies
+
+```bash
+python -m pip install -U -r requirements.txt
+```
+
+### Run it
+
 ```bash
 flask --app src/rock_paper_scissors/app  run
 ```
