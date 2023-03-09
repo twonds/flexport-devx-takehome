@@ -1,6 +1,7 @@
 # Flexport Productivity Infrastructure Take Home
 
-A take home example for an interview
+This repository contains a python backend service. This service provides a simple REST api for
+playing Rock, Paper, Scissors with a computer.
 
 
 ## Running service
@@ -19,3 +20,6 @@ curl http://127.0.0.1:5000/health
 ```bash
 curl -X POST -H 'Content-Type: application/json' http://127.0.0.1:5000/rps -d '{"move": "Rock"}'
 ```
+
+
+## Task
