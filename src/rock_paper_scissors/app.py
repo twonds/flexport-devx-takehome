@@ -3,7 +3,7 @@ import json
 
 from flask import Flask, request
 
-from rps import rock_paper_scissors
+from .rps import rock_paper_scissors
 
 
 class InvalidMove(Exception):
@@ -29,12 +29,14 @@ def rps():
     except ValueError:
         raise InvalidMove(f"{move} is invalid. Valid moves: {mapping}")
 
-    game_result  = rock_paper_scissors(user_choice)
+    game_result, pc_choice  = rock_paper_scissors(user_choice)
     if game_result == 0:
         result = "Tie"
     elif game_result == -1:
         result = f"I win, {mapping[pc_choice]} beats {move}"
-    else:
+    elif game_result == 1:
         result = f"You win, {move} beats {mapping[pc_choice]}"
 
-    return json.dumps({'result': result})
+    return json.dumps({'result': result,
+                       'game_result': game_result,
+                       'pc_choice': pc_choice})
