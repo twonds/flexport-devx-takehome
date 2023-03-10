@@ -14,14 +14,14 @@ jobs:
           kubectl get pods -n kube-system
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}
-      - name: Setup Argo
+      - name: Deploy Application
         run: |
-          kubectl create namespace argocd
-          kubectl apply -n argocd --force -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-      - name: Download argocd
+          kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
+      - name: Test Deployment
         run: |
-          curl -sSL -o ./argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-          chmod +x ./argocd
-      - name: Get SVC
+          kubectl get deployments
+          kubectl port-forward deployment/kubernetes-bootcamp 8001:80 &
+          curl http://localhost:8001/version
+      - name: Cleanup
         run: |
-          kubectl get svc -n argocd
+          kind delete cluster --name test-cd
