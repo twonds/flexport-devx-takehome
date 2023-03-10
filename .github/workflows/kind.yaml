@@ -26,10 +26,8 @@ jobs:
       - name: Test Deployment
         run: |
           kubectl get deployments
-
-          # kubectl port-forward deployment/kubernetes-bootcamp 8001:80 &
           sleep 3
-          curl http://localhost:8001/version
+          curl http://localhost:8080/version
       - name: Cleanup
         if: always()
         run: |
