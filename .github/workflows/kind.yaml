@@ -20,10 +20,6 @@ jobs:
           kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
           kubectl wait pods --for condition=Ready --timeout=90s --all
           kubectl expose deployment/kubernetes-bootcamp --type=NodePort --port 8080
-      #- name: Setup Kubernetes port-forward daemon
-      #  uses: vbem/k8s-port-forward@v1
-      #  with:
-      #    workload: 'deployment/kubernetes-bootcamp'
       - name: Test Deployment
         run: |
           export NODE_PORT=$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')
