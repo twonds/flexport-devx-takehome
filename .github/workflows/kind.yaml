@@ -19,11 +19,16 @@ jobs:
         run: |
           kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
           kubectl wait pods --for condition=Ready --timeout=90s --all
+      - name: Setup Kubernetes port-forward daemon
+        uses: vbem/k8s-port-forward@v1
+        with:
+          workload: 'deployment/kubernetes-bootcamp'
       - name: Test Deployment
         run: |
-          kubectl port-forward deployment/kubernetes-bootcamp 8001:80 &
-          sleep 3
           kubectl get deployments
+
+          # kubectl port-forward deployment/kubernetes-bootcamp 8001:80 &
+          sleep 3
           curl http://localhost:8001/version
       - name: Cleanup
         if: always()
