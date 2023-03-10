@@ -21,9 +21,11 @@ jobs:
           kubectl wait pods --for condition=Ready --timeout=90s --all
       - name: Test Deployment
         run: |
-          kubectl get deployments
           kubectl port-forward deployment/kubernetes-bootcamp 8001:80 &
+          sleep 3
+          kubectl get deployments
           curl http://localhost:8001/version
       - name: Cleanup
+        if: always()
         run: |
           kind delete cluster --name test-cd
