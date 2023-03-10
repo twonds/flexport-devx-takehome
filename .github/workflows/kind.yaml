@@ -10,6 +10,7 @@ jobs:
         uses: helm/kind-action@v1.4.0
       - name: Testing
         run: |
+          kubectl wait nodes --for condition=Ready --all
           kubectl cluster-info
           kubectl get pods -n kube-system
           echo "current-context:" $(kubectl config current-context)
@@ -17,6 +18,7 @@ jobs:
       - name: Deploy Application
         run: |
           kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
+          kubectl wait pods --for condition=Ready --timeout=90s --all
       - name: Test Deployment
         run: |
           kubectl get deployments
