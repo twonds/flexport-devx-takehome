@@ -18,6 +18,13 @@ python -m venv venv
 python -m pip install -U -r requirements.txt
 ```
 
+### Running tests
+
+```bash
+PYTHONPATH="${PYTHON_PATH}:./src" python -m pytest -v tests/unit
+PYTHONPATH="${PYTHON_PATH}:./src" python -m pytest -v tests/functional
+```
+
 ### Run it
 
 ```bash
